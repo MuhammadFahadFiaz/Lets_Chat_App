@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.fahad.letschat.MainActivity">
+    <include layout="@layout/activity_menu_bar"
+        android:id="@+id/main_menu_bar"></include>
 
     <TextView
         android:layout_width="wrap_content"

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
-    private TextInputLayout Username;
-    private TextView Email,Password;
+    private TextInputLayout Username,Email,Password;
     private Button register;
+    private Toolbar toolbar;
 
     private FirebaseAuth mAuth;
     @Override
@@ -30,16 +31,20 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         mAuth=FirebaseAuth.getInstance();
         Username=(TextInputLayout)findViewById(R.id.UserName);
-        Email=(TextView) findViewById(R.id.Register_email);
-        Password=(TextView) findViewById(R.id.Register_password);
+        Email=(TextInputLayout) findViewById(R.id.Register_email);
+        Password=(TextInputLayout) findViewById(R.id.Register_password);
         register=(Button)findViewById(R.id.Register_main);
+        toolbar=(Toolbar)findViewById(R.id.Register_menu_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Create Account");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String Username_firebase=Username.getEditText().getText().toString();
-                String email_firebase=Email.getText().toString();
-                String password_firebase=Password.getText().toString();
+                String email_firebase=Email.getEditText().getText().toString();
+                String password_firebase=Password.getEditText().getText().toString();
                 register_User_Firebase(Username_firebase,email_firebase,password_firebase);
             }
         });
