@@ -4,17 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.fahad.letschat.StartActivity">
+    tools:context="com.example.fahad.letschat.StartActivity"
+    >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome TO LetsChat App"
-        android:id="@+id/txt1"/>
+        android:text="Welcome TO LetsChat"
+        android:id="@+id/txt1"
+        android:textSize="25sp"
+        android:layout_centerInParent="true"/>
+
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/Login_me"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/txt1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/buttons"
+        android:text="ALREADY HAVE ACCOUNT?"
+        android:textColor="@android:color/white"
+        style="?attr/borderlessButtonStyle"/>
+
+    <Button
         android:id="@+id/Register_me"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Login_me"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:background="@android:color/white"
         android:text="Need New Account?"
-        android:layout_below="@id/txt1"/>
+        android:textColor="@color/buttons"
+        style="?attr/borderlessButtonStyle"/>
 
 </RelativeLayout>

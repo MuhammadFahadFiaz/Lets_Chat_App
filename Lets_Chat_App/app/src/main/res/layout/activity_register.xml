@@ -11,13 +11,13 @@
         android:id="@+id/Register_menu_bar"></include>
 
     <android.support.design.widget.TextInputLayout
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/UserName"
-        android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
         android:paddingTop="100dp">
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:hint="UserName"
             />
@@ -27,9 +27,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/Register_email"
         android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
         android:paddingTop="10dp">
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:hint="Email Id"
             android:inputType="textEmailAddress"
@@ -40,9 +41,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/Register_password"
         android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
         android:paddingTop="10dp">
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword"
@@ -65,7 +67,8 @@
             android:layout_marginTop="15dp"
             android:background="@color/buttons"
             android:text="Register"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            />
     </RelativeLayout>
     <ProgressBar
         android:id="@+id/progressBar"
