@@ -1,45 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="16dp">
-    <EditText
-        android:layout_width="match_parent"
+    tools:context="com.example.fahad.letschat.Login_Activity"
+    >
+
+    <include layout="@layout/activity_menu_bar"
+        android:id="@+id/Login_menu_bar"></include>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:id="@+id/Login_email"
-        android:hint="Email Id"
-        android:inputType="textEmailAddress"
-        />
-    <EditText
-        android:layout_width="match_parent"
+        android:id="@+id/login_email"
+        android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
+        android:paddingTop="100dp">
+        <EditText
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:hint="Email Id"
+            android:inputType="textEmailAddress"
+            />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:id="@+id/Login_password"
-        android:hint="Password"
-        android:inputType="textPassword"
-        />
+        android:id="@+id/login_password"
+        android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
+        android:paddingTop="10dp">
+        <EditText
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            />
+    </android.support.design.widget.TextInputLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/login_main"
+            style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/login_btn"
-            style="?attr/borderlessButtonStyle"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="Login"/>
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/buttons"
+            android:text="LOGIN"
+            android:textColor="@android:color/white"
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Register_btn"
-            style="?attr/borderlessButtonStyle"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="New User Click Here TO Register"/>
+            />
     </RelativeLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone" />
 
 </LinearLayout>

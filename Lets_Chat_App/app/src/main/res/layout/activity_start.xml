@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome TO LetsChat"
+        android:text="Welcome To LetsChat"
         android:id="@+id/txt1"
         android:textSize="25sp"
         android:layout_centerInParent="true"/>
