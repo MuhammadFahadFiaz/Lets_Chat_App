@@ -3,6 +3,7 @@ package com.example.fahad.letschat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -34,8 +35,13 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
+
+import id.zelory.compressor.Compressor;
 
 public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout Username,Email,Password;
@@ -45,12 +51,14 @@ public class RegisterActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private static final int profile_picture=1;
     //storing pictures
-    private StorageReference mStorageRef;
+    private StorageReference mStorageRef,thumb_upload;
+    byte[] compress_bitmap;
 
     private FirebaseAuth mAuth;
     Uri resultUri;
     String random_name;
     String download_url;
+    String Thums_download_url;
 
 
     @Override
@@ -153,20 +161,56 @@ public class RegisterActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 resultUri = result.getUri();
-                Toast.makeText(RegisterActivity.this, resultUri.toString(),Toast.LENGTH_SHORT).show();
+                File thmb=new File(resultUri.getPath());
+
+                //Toast.makeText(RegisterActivity.this, resultUri.toString(),Toast.LENGTH_SHORT).show();
                 random_name= UUID.randomUUID().toString();
                 if (!checkInternetConenction())
                 {
                     return;
                 }
                 mStorageRef= FirebaseStorage.getInstance().getReference();
+                try {
+                    Bitmap compress_image = new Compressor(this).setMaxWidth(200).setMaxHeight(200).setQuality(75).compressToBitmap(thmb);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    compress_image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    compress_bitmap = baos.toByteArray();
+                    thumb_upload=mStorageRef.child("profile_images").child("thumbs").child(random_name+".jpg");
+
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 StorageReference filepath = mStorageRef.child("profile_images").child(random_name+".jpg");
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
                             download_url=task.getResult().getDownloadUrl().toString();
-                            Toast.makeText(RegisterActivity.this, "Success.",
+                            UploadTask uploadTask = thumb_upload.putBytes(compress_bitmap);
+                            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task_thumb) {
+                                    Thums_download_url=task_thumb.getResult().getDownloadUrl().toString();
+
+                                    if (task_thumb.isSuccessful()) {
+                                        Toast.makeText(RegisterActivity.this, "Success Thumbs.",
+                                                Toast.LENGTH_SHORT).show();
+
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(RegisterActivity.this, "failed Thumbs.",
+                                                Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                }
+
+                            });
+                            Toast.makeText(RegisterActivity.this, "Success Image.",
                                     Toast.LENGTH_SHORT).show();
 
                         }
@@ -224,13 +268,14 @@ public class RegisterActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = mAuth.getInstance().getCurrentUser();
                                 String uid=user.getUid();
+
                                 databaseReference=FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
                                 HashMap<String,String> saveUser=new HashMap<>();
                                 saveUser.put("name",username);
                                 saveUser.put("status","Hey there I'm using LetsChat");
                                 saveUser.put("image",download_url);
-                                saveUser.put("thumb_image",random_name);
+                                saveUser.put("thumb_image", Thums_download_url);
                                 databaseReference.setValue(saveUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

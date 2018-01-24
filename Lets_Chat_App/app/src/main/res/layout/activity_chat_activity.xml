@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fahad.letschat.Chat_activity"
+    android:id="@+id/cvs"
+    android:background="#cccccc">
+
+    <include layout="@layout/activity_menu_bar"
+        android:id="@+id/chat_bar"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:weightSum="12"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="hello"
+            android:layout_weight="11"
+            android:textSize="20sp"
+            android:id="@+id/my_msg"
+            android:background="#ffffff" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/msg_send"
+            android:src="@drawable/msg"
+            android:background="#ffff"
+            android:scaleType="fitXY"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
