@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/UserName"
         android:layout_marginLeft="8dp"
-        android:gravity="center"
+
         android:paddingTop="100dp">
 
         <EditText
@@ -51,14 +51,29 @@
             android:inputType="textPassword"
             />
     </android.support.design.widget.TextInputLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/Upload_image"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="31dp"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/buttons"
+            android:text="Upload_Image"
+            android:textColor="@android:color/white" />
+
+        <Button
             android:id="@+id/Register_main"
             style="?attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
