@@ -5,4 +5,6 @@
     <color name="colorAccent">#ff5521</color>
     <color name="splash">#3ad1e5</color>
     <color name="buttons">#25d366</color>
+    <color name="whits">#ffff</color>
+
 </resources>

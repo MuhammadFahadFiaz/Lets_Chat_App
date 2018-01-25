@@ -31,7 +31,6 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="hello"
             android:layout_weight="11"
             android:textSize="20sp"
             android:id="@+id/my_msg"

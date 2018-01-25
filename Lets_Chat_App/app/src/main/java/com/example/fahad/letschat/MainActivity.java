@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth=FirebaseAuth.getInstance();
@@ -66,23 +67,23 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            String uid=currentUser.getUid();
+            final String uid=currentUser.getUid();
 
-            OneUser=FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
-            OneUser.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    currentname=dataSnapshot.child("name").getValue().toString();
-//                    Toast.makeText(MainActivity.this, currentname,
-//                            Toast.LENGTH_SHORT).show();
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+//            OneUser=FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+//            OneUser.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    currentname=dataSnapshot.child("name").getValue().toString();
+////                    Toast.makeText(MainActivity.this, currentname,
+////                            Toast.LENGTH_SHORT).show();
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
 
             ShowAllUsers=FirebaseDatabase.getInstance().getReference().child("Users");
 //            ShowAllUsers.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -109,17 +110,17 @@ public class MainActivity extends AppCompatActivity {
 //
 //                }
 //            });
-            //ShowAllUsers.child(uid).removeValue();
             FirebaseRecyclerAdapter<AllUsers,UserViewHolder> firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<AllUsers, UserViewHolder>(
                     AllUsers.class,R.layout.activity_single_user,UserViewHolder.class,ShowAllUsers) {
+
                 @Override
                 protected void populateViewHolder(final UserViewHolder viewHolder, AllUsers model, int position) {
 
-                    //String Name=model.getName();
                     final String usr_id=getRef(position).getKey();
                     ShowAllUsers.child(usr_id).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+
                             String name=dataSnapshot.child("name").getValue().toString();
                             String image=dataSnapshot.child("thumb_image").getValue().toString();
                             viewHolder.SetName(name);

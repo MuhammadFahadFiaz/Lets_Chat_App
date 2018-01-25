@@ -1,5 +1,6 @@
 package com.example.fahad.letschat;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -37,8 +38,8 @@ public class Chat_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_activity);
         chatusr=getIntent().getStringExtra("user_id");
-        Toast.makeText(Chat_activity.this, chatusr,
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(Chat_activity.this, chatusr,
+//                Toast.LENGTH_SHORT).show();
         toolbar=(Toolbar)findViewById(R.id.chat_bar);
         sendbtn=(ImageView)findViewById(R.id.msg_send);
         sendmsg=(EditText) findViewById(R.id.my_msg);
@@ -126,7 +127,19 @@ public class Chat_activity extends AppCompatActivity {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     sendmsg.getEditableText().clear();
+                    Toast.makeText(Chat_activity.this, "We Have Successfully Recieved Your Message On 0ur Server.",
+                            Toast.LENGTH_LONG).show();
 
+//                    Snackbar sb;
+//                    sb = Snackbar.make(findViewById(R.id.cvs),"Click exit to exit :)",Snackbar.LENGTH_LONG);
+//                    sb.dismiss();
+//                    sb.setAction("Exit", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            sendmsg.getEditableText().clear();
+//                            sb.dismiss();
+//                        }
+//                    });
 
                 }
             });

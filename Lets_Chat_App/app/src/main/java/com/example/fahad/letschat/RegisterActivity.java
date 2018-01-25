@@ -59,6 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
     String random_name;
     String download_url;
     String Thums_download_url;
+    String Picturs_checks="";
+    int wait=2;
 
 
     @Override
@@ -128,7 +130,15 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (password_firebase.length() < 6) {
                     Password.getEditText().requestFocus();
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(Picturs_checks)) {
+                    Toast.makeText(getApplicationContext(), "Please Select Some Image!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (Picturs_checks.equals("alpha")) {
+                    Toast.makeText(getApplicationContext(), "Please wait while we upload Image.Then Press Register Button!", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (!checkInternetConenction())
@@ -169,6 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     return;
                 }
+                Picturs_checks="alpha";
                 mStorageRef= FirebaseStorage.getInstance().getReference();
                 try {
                     Bitmap compress_image = new Compressor(this).setMaxWidth(200).setMaxHeight(200).setQuality(75).compressToBitmap(thmb);
@@ -196,8 +207,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Thums_download_url=task_thumb.getResult().getDownloadUrl().toString();
 
                                     if (task_thumb.isSuccessful()) {
-                                        Toast.makeText(RegisterActivity.this, "Success Thumbs.",
-                                                Toast.LENGTH_SHORT).show();
+                                        Picturs_checks="bETA";
 
                                     }
                                     else
@@ -210,8 +220,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
 
                             });
-                            Toast.makeText(RegisterActivity.this, "Success Image.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Image Uploaded Sucessfully.",
+                                    Toast.LENGTH_LONG).show();
 
                         }
                         else {
@@ -268,6 +278,7 @@ public class RegisterActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = mAuth.getInstance().getCurrentUser();
                                 String uid=user.getUid();
+                                int num=1;
 
                                 databaseReference=FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
@@ -322,14 +333,13 @@ public class RegisterActivity extends AppCompatActivity {
                 connec.getNetworkInfo(1).getState() ==
                         android.net.NetworkInfo.State.CONNECTING ||
                 connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED ) {
-            Toast.makeText(this, " Connected ", Toast.LENGTH_LONG).show();
             return true;
         }else if (
                 connec.getNetworkInfo(0).getState() ==
                         android.net.NetworkInfo.State.DISCONNECTED ||
                         connec.getNetworkInfo(1).getState() ==
                                 android.net.NetworkInfo.State.DISCONNECTED  ) {
-            Toast.makeText(this, " Not Connected ", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, " Please Connect To Internet And Try Again", Toast.LENGTH_LONG).show();
             return false;
         }
         return false;
